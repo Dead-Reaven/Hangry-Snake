@@ -1,9 +1,12 @@
 import Target from "./food.js";
-import getObject from "./getObject.js";
+import { getObject, setPosition } from "./getObject.js";
 import getPlayArea from "./getPlayArea.js";
 
-let gameArea = { ...getPlayArea() };
-const head = getObject("head", 0, gameArea.x2 / 2, gameArea.y2 / 2);
+const head = getObject("head", 0, -null, null);
+const gameArea = getPlayArea();
+head.xPos = gameArea.x2 / 2;
+head.yPos = gameArea.y2 / 2;
+setPosition(head.html, head.xPos, head.yPos);
 
 class Head {
   child = null;
@@ -61,7 +64,7 @@ class Head {
     } else {
       let newChild = getObject("tail", this.id + 1, this.xPos, this.yPos);
       this.child = new Tail(newChild, this.distanse, this.timeout);
-      this.child.setPosition();
+      setPosition(newChild.html, newChild.xPos, newChild.yPos);
     }
   }
 
@@ -73,6 +76,7 @@ class Head {
   move(side) {
     if (this.stop) return;
     this[side](this.distanse);
+    setPosition(this.html, this.xPos, this.yPos);
     if (this.child) {
       setTimeout(() => {
         this.child.move(side);
@@ -80,29 +84,19 @@ class Head {
     }
   }
 
-  setPosition() {
-    this.html.style = ` 
-      top: ${this.yPos}px;
-      left: ${this.xPos}px;`;
-  }
-
   right = (distanse) => {
     this.xPos += distanse;
-    this.setPosition();
   };
   left = (distanse) => {
     this.xPos -= distanse;
-    this.setPosition();
   };
 
   up = (distanse) => {
     this.yPos -= distanse;
-    this.setPosition();
   };
 
   down = (distanse) => {
     this.yPos += distanse;
-    this.setPosition();
   };
 }
 
@@ -120,13 +114,8 @@ class Tail extends Head {
 class Snake {
   constructor(defaultAppend, distance, timeout) {
     this.Head = new Head(head, distance, timeout);
-
     this.defaultAppend = defaultAppend;
     this.append(this.defaultAppend);
-    this.gameArea = gameArea;
-
-    this.gameArea.x2 -= document.getElementById("0").offsetWidth;
-    this.gameArea.y2 -= document.getElementById("0").offsetHeight;
     this.spawNewTarget();
   }
 
@@ -183,15 +172,14 @@ class Snake {
   spawNewTarget() {
     this.Food = new Target();
     this.targetArea = this.Food.getArea();
-    this.Food.setPosistion();
   }
 
   #ckeckOutOfGame() {
     if (
-      this.Head.xPos == this.gameArea.x1 ||
-      this.Head.xPos == this.gameArea.x2 ||
-      this.Head.yPos == this.gameArea.y1 ||
-      this.Head.yPos == this.gameArea.y2
+      this.Head.xPos <= gameArea.x1 ||
+      this.Head.xPos >= gameArea.x2 ||
+      this.Head.yPos <= gameArea.y1 ||
+      this.Head.yPos >= gameArea.y2
     )
       return true;
   }
