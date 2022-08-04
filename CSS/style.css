@@ -1,0 +1,116 @@
+body {
+  background: rgba(23, 167, 199, 0.375);
+  overflow: hidden;
+  padding-top: 60px;
+}
+
+.game-field {
+  margin: auto;
+  width: 600px;
+  background: rgba(255, 255, 255, 0.436);
+  outline: 3px solid rgba(255, 255, 255, 0.827);
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 30px rgba(113, 147, 201, 0.744);
+          box-shadow: 0px 0px 30px rgba(113, 147, 201, 0.744);
+  position: relative;
+}
+.game-field .score-bar {
+  display: block;
+  text-align: center;
+  position: relative;
+  padding: 2px 0px;
+  height: 40px;
+  border-radius: 10px;
+  border-bottom: 1px solid white;
+  background: rgba(0, 0, 0, 0.264);
+  color: rgb(255, 255, 255);
+  font-size: 32px;
+  font-family: "Cabin", sans-serif;
+}
+.game-field .score-bar .score {
+  display: inline-block;
+  width: 30%;
+}
+.game-field .score-bar .size {
+  display: inline-block;
+  width: 30%;
+}
+.game-field .score-bar .restart-btn {
+  height: 30px;
+  width: 30px;
+  background: url("../img/restart_ico.jpg");
+  background-position: center;
+  background-size: 50px;
+  border-radius: 50%;
+  padding: 5px 0px;
+  position: absolute;
+  top: 4px;
+  right: 10px;
+}
+.game-field .game {
+  background: rgba(255, 255, 255, 0.271);
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+}
+.game-field .game .head {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgb(255, 0, 0);
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+  border-radius: 50%;
+}
+.game-field .game .body {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgb(220, 142, 142);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.game-field .game .tail {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgb(220, 142, 142);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.game-field .game .food {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgba(220, 142, 142, 0.87);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.game-field .short-cuts-bar {
+  display: block;
+  height: 60px;
+  background-color: white;
+  text-align: justify;
+  font-family: "Cabin", sans-serif;
+}
+.game-field .short-cuts-bar .content {
+  color: black;
+  font-size: 16px;
+  height: 20px;
+  display: inline-block;
+  margin: 5px 13px;
+  outline: 1px solid black;
+  border-radius: 5px;
+}
+.game-field .short-cuts-bar .content div {
+  display: inherit;
+  color: rgba(255, 0, 0, 0.798);
+}

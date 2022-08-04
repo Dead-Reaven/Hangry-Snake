@@ -1,0 +1,108 @@
+@mixin object($width, $height, $color) {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: $color;
+  width: $width;
+  height: $height;
+}
+
+body {
+  background: rgba(23, 167, 199, 0.375);
+  overflow: hidden;
+  padding-top: 60px;
+}
+.game-field {
+  margin: auto;
+  width: 600px;
+  background: rgba(255, 255, 255, 0.436);
+  outline: 3px solid rgba(255, 255, 255, 0.827);
+  border-radius: 10px;
+  box-shadow: 0px 0px 30px rgba(113, 147, 201, 0.744); // rgba(23, 167, 199, 0.864);
+  position: relative;
+
+  .score-bar {
+    display: block;
+    text-align: center;
+    position: relative;
+    padding: 2px 0px;
+    height: 40px;
+    border-radius: 10px;
+    border-bottom: 1px solid white;
+
+    background: rgba(0, 0, 0, 0.264);
+
+    color: rgb(255, 255, 255);
+    font-size: 32px;
+    font-family: "Cabin", sans-serif;
+    .score {
+      display: inline-block;
+      width: 30%;
+    }
+    .size {
+      display: inline-block;
+      width: 30%;
+    }
+    .restart-btn {
+      height: 30px;
+      width: 30px;
+
+      background: url("../img/restart_ico.jpg");
+      background-position: center;
+      background-size: 50px;
+      border-radius: 50%;
+      padding: 5px 0px;
+      position: absolute;
+      top: 4px;
+      right: 10px;
+    }
+  }
+  .game {
+    background: rgba(255, 255, 255, 0.271);
+    position: relative;
+    overflow: hidden;
+    height: 500px;
+    $widht: 20px;
+    $height: 20px;
+    .head {
+      @include object($widht, $height, rgb(255, 0, 0));
+      z-index: 1;
+      border-radius: 50%;
+    }
+    .body {
+      @include object($widht, $height, rgb(220, 142, 142));
+      border-radius: 50%;
+    }
+    .tail {
+      @include object($widht, $height, rgb(220, 142, 142));
+      border-radius: 50%;
+    }
+    .food {
+      @include object($widht, $height, rgba(220, 142, 142, 0.87));
+      border-radius: 50%;
+    }
+  }
+
+  .short-cuts-bar {
+    display: block;
+    height: 60px;
+    background-color: white;
+    text-align: justify;
+
+    font-family: "Cabin", sans-serif;
+    .content {
+      color: black;
+      font-size: 16px;
+      height: 20px;
+      display: inline-block;
+      margin: 5px 13px;
+      outline: 1px solid black;
+      border-radius: 5px;
+      div {
+        display: inherit;
+        color: rgba(255, 0, 0, 0.798);
+      }
+    }
+  }
+}

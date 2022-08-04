@@ -1,0 +1,16 @@
+
+  // fps difficulty (px|ml|ap) speed 
+  // 60  medium+    4 17 5  ~= 235 px/sec
+  // 33  low        5 30 4  ~= 166 px/sec
+  // 40  medium     5 25 4   = 200 px/sec
+  // 50  hard       5 20 4   = 250 px/sec
+ 
+  /*
+  speed:
+    px/sec =   1000 / interval * distanseMove;
+  size append:
+    if distanseMove < sizeHead then:
+      defaultAppend =sizeOfHead(in px) / distanseMove;
+    else: 
+      defaultAppend = distanseMove;
+  */
