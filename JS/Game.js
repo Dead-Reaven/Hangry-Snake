@@ -12,7 +12,7 @@ class Game {
   
   constructor() {
     this.Menu = new Score();
-    this.Snake = new Snake_(this.defaultAppend, this.distanseMove, this.interval);
+    this.Snake = new Snake_(this.defaultAppend);
   }
 
   startGame = () => {
@@ -40,7 +40,7 @@ class Game {
   targetDestroyed = () => {
     this.Menu.scoreUp();
     this.Menu.sizeUp(this.defaultAppend);
-    this.Snake.Head.move(this.runSide);
+    this.Snake.Head.move(this.runSide, this.distanseMove, this.interval);
   };
 
   outOfArea = () => {
@@ -56,7 +56,7 @@ class Game {
   runGame() {
     var interval = setInterval(() => {
       if (!this.run) clearInterval(interval);
-      const resultMove = this.Snake.runSnake(this.runSide);
+      const resultMove = this.Snake.runSnake(this.runSide, this.distanseMove, this.interval);
       if (resultMove === "continue") return;
       if (resultMove === "targetDestroyed") this.targetDestroyed();
       if (resultMove === "selfDestroyed" || resultMove === "outOfArea") {

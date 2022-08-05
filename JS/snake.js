@@ -2,7 +2,7 @@ import Target from "./food.js";
 import { getObject, setPosition } from "./getObject.js";
 import getPlayArea from "./getPlayArea.js";
 
-const head = getObject("head", 0, -null, null);
+const head = getObject("head", 0, null, null);
 const gameArea = getPlayArea();
 head.xPos = gameArea.x2 / 2;
 head.yPos = gameArea.y2 / 2;
@@ -12,20 +12,12 @@ class Head {
   child = null;
   lastChild = this.child;
 
-  constructor(object, distance, timeout) {
+  constructor(object) {
     this.html = object.html;
     this.id = Number(object.id);
     this.xPos = object.xPos;
     this.yPos = object.yPos;
     this.stop = false;
-    this.sizeHead = this.html.offsetWidth;
-    this.setMoveConfig(distance, timeout);
-  }
-
-  setMoveConfig(distanse, timeout) {
-    this.distanse = distanse;
-    this.timeout = timeout;
-    if (this.child) this.child.setMoveConfig(distanse, timeout);
   }
 
   getCoordinates() {
@@ -36,7 +28,7 @@ class Head {
     };
   }
 
-  getSnakeArea() {
+  getSnakeArea(distance) {
     let arr = [];
     let child = this.child;
     for (let id = 0; child; id++, child = child.child) {
@@ -45,10 +37,10 @@ class Head {
 
     const snakeArea = arr.map((el) => {
       return {
-        x1: el.x - this.distanse + 0.1,
-        x2: el.x + this.distanse - 0.1,
-        y1: el.y - this.distanse + 0.1,
-        y2: el.y + this.distanse - 0.1,
+        x1: el.x - distance + 0.1,
+        x2: el.x + distance - 0.1,
+        y1: el.y - distance + 0.1,
+        y2: el.y + distance - 0.1,
       };
     });
 
@@ -63,7 +55,7 @@ class Head {
       this.child.html.setAttribute("class", "body");
     } else {
       let newChild = getObject("tail", this.id + 1, this.xPos, this.yPos);
-      this.child = new Tail(newChild, this.distanse, this.timeout);
+      this.child = new Tail(newChild);
       setPosition(newChild.html, newChild.xPos, newChild.yPos);
     }
   }
@@ -73,14 +65,14 @@ class Head {
     if (this.child) this.child.stopMove();
   }
 
-  move(side) {
+  move(side, distance, timeout) {
     if (this.stop) return;
-    this[side](this.distanse);
+    this[side](distance);
     setPosition(this.html, this.xPos, this.yPos);
     if (this.child) {
       setTimeout(() => {
-        this.child.move(side);
-      }, this.timeout);
+        this.child.move(side, distance, timeout);
+      }, timeout);
     }
   }
 
@@ -101,19 +93,14 @@ class Head {
 }
 
 class Tail extends Head {
-  constructor(object, distance, timeout) {
-    super(object, distance, timeout);
+  constructor(object) {
+    super(object);
   }
 }
 
-//////////////
-////////
-/////////////////////
-//////////
-
 class Snake {
-  constructor(defaultAppend, distance, timeout) {
-    this.Head = new Head(head, distance, timeout);
+  constructor(defaultAppend) {
+    this.Head = new Head(head);
     this.defaultAppend = defaultAppend;
     this.append(this.defaultAppend);
     this.spawNewTarget();
@@ -123,14 +110,13 @@ class Snake {
     for (let i = 0; i < count; i++) this.Head.append();
   };
 
-  runSnake(side) {
+  runSnake(side, distance, timeout) {
     if (this.#checkTarget()) return "targetDestroyed";
     if (this.#ckeckOutOfGame()) return "outOfArea";
-    this.Head.move(side);
+    this.Head.move(side, distance, timeout);
 
-    if (this.#checkSelfEaten(this.Head.getSnakeArea())) return "selfDestroyed";
-
-    return "continue";
+    if (this.#checkSelfEaten(this.Head.getSnakeArea(distance)))
+      return "selfDestroyed";
   }
 
   #checkSelfEaten(arr) {
