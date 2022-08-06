@@ -3,20 +3,8 @@ import MyGAME from "./Game.js";
 const Game = new MyGAME();
 
 window.addEventListener("keydown", (event) => {
-  if (Game.gameOvered) return;
-
+  if (Game.Menu.gameOvered) return;
   const keydown = event.key;
-  //console.log(keydown);
-
-  // if (keydown === "u") {
-  //   Game.stopGame();
-
-  //   const newDistanse = prompt("Distanse update");
-  //   const newInterval = prompt("Set interval:");
-  //   Game.Snake.Head.setMoveConfig(newDistanse, newInterval);
-  //    return;
-  // }
-
   if (keydown === "n") Game.Snake.spawNewTarget();
   else if (keydown === "e") Game.Snake.eatTarget();
   else if (keydown === "z") Game.Menu.scoreUp();
@@ -32,6 +20,11 @@ window.addEventListener("keydown", (event) => {
   if (keydown === "s") {
     if (!Game.run) Game.startGame();
     else if (Game.run) Game.stopGame();
+  }
+  if (keydown === "0") {
+    setTimeout(() => {
+      Game.startGame();
+    }, 1000);
   }
   Game.setRunSide(keydown);
 });

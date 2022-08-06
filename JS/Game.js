@@ -26,16 +26,6 @@ class Game {
     this.run = false;
   };
 
-  gameOvered = false;
-  gameOver() {
-    const messageHTML = document.createElement("button");
-    messageHTML.setAttribute("class", "restart-btn");
-    messageHTML.setAttribute("onclick", "location.reload(true)");
-    document.getElementById("menu").appendChild(messageHTML);
-    this.Snake.Head.stopMove();
-
-    this.gameOvered = true;
-  }
 
   targetDestroyed = () => {
     this.Menu.scoreUp();
@@ -45,12 +35,14 @@ class Game {
 
   outOfArea = () => {
     this.run = false;
-    this.gameOver();
+    this.Snake.Head.stopMove();
+    this.Menu.gameOver();
   };
 
   selfDestroyed() {
     this.run = false;
-    this.gameOver();
+    this.Snake.Head.stopMove();
+    this.Menu.gameOver();
   }
 
   runGame() {

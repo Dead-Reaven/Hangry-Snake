@@ -21,21 +21,48 @@
       <div class="score-bar" id="menu">
         <div id="score" class="score">Score: 0</div>
         <div id="size" class="size">Size: 1</div>
-        <!-- <button class="restart-btn" onclick="location.reload(true)"></button> -->
+        <button
+          class="start-btn"
+          onclick="window.dispatchEvent(new KeyboardEvent('keydown', {
+          'key': '0'
+        }));"
+        ></button>
+        <button class="restart-btn" onclick="location.reload(true)"></button>
       </div>
       <div id="game" class="game"></div>
       <div class="short-cuts-bar">
-        <div class="content">Start/Stop Game: <div>S</div></div>
-        <div class="content">Update Distance and Interval: <div>U</div></div>
-        <div class="content">Score up: <div>Z</div></div>
-        <div class="content">Size up: <div>X</div></div>
-        <div class="content">Restart Game: <div>R</div></div>
-        <div class="content">Spaw new target: <div>N</div></div>
-        <div class="content">Eat target: <div>E</div></div>
-        <div class="content">Append: <div>A</div></div>
-
-
-
+        <div class="content">
+          Start/Stop Game:
+          <div>S</div>
+        </div>
+        <div class="content">
+          Update Distance and Interval:
+          <div>U</div>
+        </div>
+        <div class="content">
+          Score up:
+          <div>Z</div>
+        </div>
+        <div class="content">
+          Size up:
+          <div>X</div>
+        </div>
+        <div class="content">
+          Restart Game:
+          <div>R</div>
+        </div>
+        <div class="content">
+          Spaw new target:
+          <div>N</div>
+        </div>
+        <div class="content">
+          Eat target:
+          <div>E</div>
+        </div>
+        <div class="content">
+          Append:
+          <div>A</div>
+        </div>
       </div>
     </div>
   </body>
